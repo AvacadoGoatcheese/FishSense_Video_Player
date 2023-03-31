@@ -69,7 +69,7 @@ namespace MVVM_Attempt_3_Video_Player.Views
                     MessageBox.Show("Pressing the arrow keys skips frames. Please enter a framerate using the checkboxes before using them.");
                 }
 
-                int ticks = (int)(1.0 / frame_rate * 1000 * 10000); // 1000 ms per second, 10000 ticks per ms
+                int ticks = (int)(1.0 / frame_rate * 10000000); // 10,000,000 ticks per second
                 if (e.Key == Key.Right)
                 {
                     Video1.Position += TimeSpan.FromTicks(ticks);
@@ -79,9 +79,10 @@ namespace MVVM_Attempt_3_Video_Player.Views
                 {
                     Video1.Position -= TimeSpan.FromTicks(ticks);
                 }
+                Video1.Play();
+                Video1.Pause();
             }
-            Video1.Play();
-            Video1.Pause();
+
                 
                 
         }

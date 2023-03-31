@@ -10,10 +10,8 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
 {
     public class TwoVideosViewModel : ViewModelBase
     {
-        int PLAY = 0;
-        int PAUSE = 1;
-        int STOP = 2;
-        int MUTE = 3;
+        int VIDEO_ONE = 1;
+        int VIDEO_TWO = 2;
 
         private string _video_one_filename;
         public string video_one_filename
@@ -25,6 +23,7 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
                 OnPropertyChanged(nameof(video_one_filename));
             }
         }
+        
         private string _video_two_filename;
         public string video_two_filename
         {
@@ -141,15 +140,77 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             }
         }
 
+        private double _framerate_1;
+        public double framerate_1
+        {
+            get => _framerate_1;
+            set
+            {
+                _framerate_1 = value;
+                OnPropertyChanged(nameof(framerate_1));
+            }
+        }
+
+        private double _resolution_width_1;
+        public double resolution_width_1
+        {
+            get => _resolution_width_1;
+            set
+            {
+                _resolution_width_1 = value;
+                OnPropertyChanged(nameof(resolution_width_1));
+            }
+        }
+
+        private double _resolution_height_1;
+        public double resolution_height_1
+        {
+            get => _resolution_height_1;
+            set
+            {
+                _resolution_height_1 = value;
+                OnPropertyChanged(nameof(resolution_height_1));
+            }
+        }
+        private double _framerate_2;
+        public double framerate_2
+        {
+            get => _framerate_2;
+            set
+            {
+                _framerate_2 = value;
+                OnPropertyChanged(nameof(framerate_2));
+            }
+        }
+
+        private double _resolution_width_2;
+        public double resolution_width_2
+        {
+            get => _resolution_width_2;
+            set
+            {
+                _resolution_width_2 = value;
+                OnPropertyChanged(nameof(resolution_width_2));
+            }
+        }
+
+        private double _resolution_height_2;
+        public double resolution_height_2
+        {
+            get => _resolution_height_2;
+            set
+            {
+                _resolution_height_2 = value;
+                OnPropertyChanged(nameof(resolution_height_2));
+            }
+        }
         public ICommand FileExplorer_1 { get; set; }
         public ICommand FileExplorer_2 { get; set; }
-
 
         public ICommand VideoControl_Play_1 { get; set; }
         public ICommand VideoControl_Pause_1 { get; set; }
         public ICommand VideoControl_Stop_1 { get; set; }
         public ICommand VideoControl_Mute_1 { get; set; }
-
 
         public ICommand VideoControl_Play_2 { get; set; }
         public ICommand VideoControl_Pause_2 { get; set; }
@@ -159,18 +220,18 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
 
         public TwoVideosViewModel()
         {
-            FileExplorer_1 = new FileExplorer(this, 1);
-            FileExplorer_2 = new FileExplorer(this, 2);
+            FileExplorer_1 = new FileExplorer(this, VIDEO_ONE);
+            FileExplorer_2 = new FileExplorer(this, VIDEO_TWO);
 
-            VideoControl_Play_1 = new PlayButton(this, 1);
-            VideoControl_Pause_1 = new PauseButton(this, 1);
-            VideoControl_Stop_1 = new RestartButton(this, 1);
-            VideoControl_Mute_1 = new MuteButton(this, 1);
+            VideoControl_Play_1 = new PlayButton(this, VIDEO_ONE);
+            VideoControl_Pause_1 = new PauseButton(this, VIDEO_ONE);
+            VideoControl_Stop_1 = new RestartButton(this, VIDEO_ONE);
+            VideoControl_Mute_1 = new MuteButton(this, VIDEO_ONE);
 
-            VideoControl_Play_2 = new PlayButton(this, 2);
-            VideoControl_Pause_2 = new PauseButton(this, 2);
-            VideoControl_Stop_2 = new RestartButton(this, 2);
-            VideoControl_Mute_2 = new MuteButton(this, 2);
+            VideoControl_Play_2 = new PlayButton(this, VIDEO_TWO);
+            VideoControl_Pause_2 = new PauseButton(this, VIDEO_TWO);
+            VideoControl_Stop_2 = new RestartButton(this, VIDEO_TWO);
+            VideoControl_Mute_2 = new MuteButton(this, VIDEO_TWO);
 
         }
     }

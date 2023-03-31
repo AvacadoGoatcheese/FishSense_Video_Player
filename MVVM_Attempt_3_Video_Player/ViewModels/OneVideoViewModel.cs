@@ -31,6 +31,38 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
                 OnPropertyChanged(nameof(video_one_filename_no_dir));
             }
         }
+        private double _framerate;
+        public double framerate
+        {
+            get => _framerate;
+            set
+            {
+                _framerate = value;
+                OnPropertyChanged(nameof(framerate));
+            }
+        }
+
+        private double _resolution_width;
+        public double resolution_width
+        {
+            get => _resolution_width;
+            set
+            {
+                _resolution_width = value;
+                OnPropertyChanged(nameof(resolution_width));
+            }
+        }
+
+        private double _resolution_height;
+        public double resolution_height
+        {
+            get => _resolution_height;
+            set
+            {
+                _resolution_height = value;
+                OnPropertyChanged(nameof(resolution_height));
+            }
+        }
 
         private string _x_coord;
         public string x_coord 
@@ -62,6 +94,10 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             {
                 _is_playing = value;
                 OnPropertyChanged(nameof(is_playing));
+                if (_is_playing)
+                {
+                    Video1.Play();
+                }
             }
         }
 
@@ -90,6 +126,9 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
 
             FileExplorer = new FileExplorer(this);
             MuteButton = new MuteButton(this);
+            PauseButton = new PauseButton(this);
+            RestartButton= new RestartButton(this);
+            PlayButton= new PlayButton(this);
         }
 
     }

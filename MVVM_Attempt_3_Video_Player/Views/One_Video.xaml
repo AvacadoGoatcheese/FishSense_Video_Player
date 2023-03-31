@@ -31,9 +31,9 @@
 
         <!--Row 1 has the buttons and the slider-->
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="40 6 6 6" Width="100" Click="play_button">Play</Button>
-            <Button Margin="6 6 6 6" Width="100" Click="pause_button">Pause</Button>
-            <Button Margin="6 6 6 6" Width="100" Click="restart_button">Restart</Button>
+            <Button Margin="40 6 6 6" Width="100" Command="{Binding PlayButton}">Play</Button>
+            <Button Margin="6 6 6 6" Width="100" Command="{Binding PauseButton}">Pause</Button>
+            <Button Margin="6 6 6 6" Width="100" Command="{Binding RestartButton}">Restart</Button>
             <Button Margin="6 6 6 6" Width="100" Command="{Binding MuteButton}">Mute</Button>
             <!--<Slider Name="Slider"  Margin="6 6 6 6" Width="500" ValueChanged="Slider_ValueChanged" Delay="2000"></Slider>-->
         </StackPanel>   
