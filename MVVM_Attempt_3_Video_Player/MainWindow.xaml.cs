@@ -1,4 +1,5 @@
 ﻿using MVVM_Attempt_3_Video_Player.ViewModels;
+using MVVM_Attempt_3_Video_Player.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,25 @@ namespace MVVM_Attempt_3_Video_Player
             InitializeComponent();
             this.DataContext = new MainViewModel();
         }
+
+     //   private void Window_Loaded(object sender, RoutedEventArgs e)
+     //   {
+     //       this.KeyDown += new KeyEventHandler(UserControl_KeyDown_One_Video);
+     //   }
+
+
+     //   private void UserControl_KeyDown_One_Video(object sender, KeyEventArgs e)
+     //   {
+     //       if (e.Key == Key.Right || e.Key == Key.Left)
+     //       {
+     //           if (((MainViewModel)(this.DataContext)).ShowingOneVideo)
+     //           {
+     //               
+     //           } else if (((MainViewModel)(this.DataContext)).ShowingTwoVideos)
+     //           {
+     //
+     //           }
+     //       }
+     //   }
     }
 }

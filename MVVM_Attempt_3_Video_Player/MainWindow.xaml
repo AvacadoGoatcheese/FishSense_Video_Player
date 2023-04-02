@@ -15,10 +15,8 @@
             <Button Content="One Video" IsEnabled="{Binding ShowingTwoVideos}" Command="{Binding UpdateViewCommand}" CommandParameter="ShowOneVideo"/>
             <Button Content="Two Videos" IsEnabled="{Binding ShowingOneVideo}" Command="{Binding UpdateViewCommand}" CommandParameter="ShowTwoVideos"/>
         </StackPanel>
-        
+
         <ContentControl Grid.Row="1" Content="{Binding SelectedViewModel}"/>
         
     </Grid>
-
-    
 </Window>

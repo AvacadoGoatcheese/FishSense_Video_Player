@@ -58,7 +58,6 @@ namespace MVVM_Attempt_3_Video_Player.Commands
                 if (current_video == whichVM.ONEVIDEO)
                 {
                     one_video_VM.video_one_filename = openFileDialog.FileName;
-                    one_video_VM.video_one_filename_no_dir = openFileDialog.SafeFileName;
 
                     var resolution = return_resolution(openFileDialog.FileName);
                     double framerate = return_framerate(openFileDialog.FileName);
@@ -70,7 +69,6 @@ namespace MVVM_Attempt_3_Video_Player.Commands
                 else if (current_video == whichVM.TWOVIDEOS_FIRST)
                 {
                     two_video_VM.video_one_filename = openFileDialog.FileName;
-                    two_video_VM.video_one_filename_no_dir = openFileDialog.SafeFileName;
 
                     var resolution = return_resolution(openFileDialog.FileName);
                     double framerate = return_framerate(openFileDialog.FileName);
@@ -83,8 +81,7 @@ namespace MVVM_Attempt_3_Video_Player.Commands
                 else if (current_video == whichVM.TWOVIDEOS_SECOND)
                 {
                     two_video_VM.video_two_filename = openFileDialog.FileName;
-                    two_video_VM.video_two_filename_no_dir = openFileDialog.SafeFileName;
-
+                   
                     var resolution = return_resolution(openFileDialog.FileName);
                     double framerate = return_framerate(openFileDialog.FileName);
 
@@ -116,7 +113,7 @@ namespace MVVM_Attempt_3_Video_Player.Commands
             while (!process.StandardOutput.EndOfStream)
             {
                 cmd_framerate_output = process.StandardOutput.ReadLine();
-                MessageBox.Show(cmd_framerate_output);
+                //MessageBox.Show(cmd_framerate_output);
             }
             process.Close();
     
@@ -146,7 +143,7 @@ namespace MVVM_Attempt_3_Video_Player.Commands
             }
             else
             {
-                MessageBox.Show("There was an issue calculating your framerate for the video. Please confirm you have ffprobe/ffmpeg installed. If the problem still persists, please contact a8ghosh@ucsd.edu.");
+                //MessageBox.Show("There was an issue calculating your framerate for the video. Please confirm you have ffprobe/ffmpeg installed. If the problem still persists, please contact a8ghosh@ucsd.edu.");
             }
             return framerate;
         }
@@ -171,7 +168,7 @@ namespace MVVM_Attempt_3_Video_Player.Commands
             while (!process.StandardOutput.EndOfStream)
             {
                 cmd_resolution_output = process.StandardOutput.ReadLine();
-                MessageBox.Show(cmd_resolution_output);
+                //MessageBox.Show(cmd_resolution_output);
             }
 
             //processing resolution from string format widthxheight 

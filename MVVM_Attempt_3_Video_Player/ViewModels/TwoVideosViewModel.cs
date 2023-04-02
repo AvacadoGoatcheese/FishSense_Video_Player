@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MVVM_Attempt_3_Video_Player.ViewModels
@@ -20,6 +21,7 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             set
             {
                 _video_one_filename = value;
+                //MessageBox.Show(_video_one_filename);
                 OnPropertyChanged(nameof(video_one_filename));
             }
         }
@@ -32,28 +34,6 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             {
                 _video_two_filename = value;
                 OnPropertyChanged(nameof(video_two_filename));
-            }
-        }
-
-        private string _video_one_filename_no_dir;
-        public string video_one_filename_no_dir
-        {
-            get => _video_one_filename_no_dir;
-            set
-            {
-                _video_one_filename_no_dir = value;
-                OnPropertyChanged(nameof(video_one_filename_no_dir));
-            }
-        }
-
-        private string _video_two_filename_no_dir;
-        public string video_two_filename_no_dir
-        {
-            get => _video_two_filename_no_dir;
-            set
-            {
-                _video_two_filename_no_dir = value;
-                OnPropertyChanged(nameof(video_two_filename_no_dir));
             }
         }
 
@@ -207,14 +187,7 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
         public ICommand FileExplorer_1 { get; set; }
         public ICommand FileExplorer_2 { get; set; }
 
-        public ICommand VideoControl_Play_1 { get; set; }
-        public ICommand VideoControl_Pause_1 { get; set; }
-        public ICommand VideoControl_Stop_1 { get; set; }
         public ICommand VideoControl_Mute_1 { get; set; }
-
-        public ICommand VideoControl_Play_2 { get; set; }
-        public ICommand VideoControl_Pause_2 { get; set; }
-        public ICommand VideoControl_Stop_2 { get; set; }
         public ICommand VideoControl_Mute_2 { get; set; }
 
 
@@ -223,16 +196,8 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             FileExplorer_1 = new FileExplorer(this, VIDEO_ONE);
             FileExplorer_2 = new FileExplorer(this, VIDEO_TWO);
 
-            VideoControl_Play_1 = new PlayButton(this, VIDEO_ONE);
-            VideoControl_Pause_1 = new PauseButton(this, VIDEO_ONE);
-            VideoControl_Stop_1 = new RestartButton(this, VIDEO_ONE);
             VideoControl_Mute_1 = new MuteButton(this, VIDEO_ONE);
-
-            VideoControl_Play_2 = new PlayButton(this, VIDEO_TWO);
-            VideoControl_Pause_2 = new PauseButton(this, VIDEO_TWO);
-            VideoControl_Stop_2 = new RestartButton(this, VIDEO_TWO);
             VideoControl_Mute_2 = new MuteButton(this, VIDEO_TWO);
-
         }
     }
 }

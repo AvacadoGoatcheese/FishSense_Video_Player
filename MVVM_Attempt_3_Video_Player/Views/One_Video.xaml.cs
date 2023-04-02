@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVVM_Attempt_3_Video_Player.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,51 +26,21 @@ namespace MVVM_Attempt_3_Video_Player.Views
             InitializeComponent();
         }
 
-        public void play_button(object sender, RoutedEventArgs e)
-        {
-            Video1.Play();
-        }
-        public void pause_button(object sender, RoutedEventArgs e)
-        {
-            Video1.Pause();
-        }
-        public void restart_button(object sender, RoutedEventArgs e)
-        {
-            Video1.Stop();
-            Video1.Play();
-
-            //Slider.Value = 0;
-        }
-
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
            //double proportion = 1.0 * Slider.Value / Slider.Maximum;
            //Video1.Pause();
            //
            //Video1.Position = Video1.NaturalDuration.TimeSpan * proportion;
-           //Video1.Play();
+           //Video1.Play();\
         }
 
-        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        private void UserControl_KeyDown_One_Video(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Right || e.Key == Key.Left)
-            {
-                Video1.Pause();
-                double frame_rate = 0;
-                if (fps_30_box != null && (bool)fps_30_box.IsChecked)
-                {
-                    frame_rate = 29.97;
-                }
-                else if (fps_60_box != null && (bool)fps_60_box.IsChecked)
-                {
-                    frame_rate = 29.97 * 2;
-                }
-                else
-                {
-                    MessageBox.Show("Pressing the arrow keys skips frames. Please enter a framerate using the checkboxes before using them.");
-                }
-
-                int ticks = (int)(1.0 / frame_rate * 10000000); // 10,000,000 ticks per second
+            if (e.Key == Key.Right || e.Key == Key.Left )
+            { 
+                double framerate = ((OneVideoViewModel)(this.DataContext)).framerate;
+                int ticks = (int)(1.0 / framerate * 10_000_000); // 10,000,000 ticks per second
                 if (e.Key == Key.Right)
                 {
                     Video1.Position += TimeSpan.FromTicks(ticks);
@@ -78,6 +49,7 @@ namespace MVVM_Attempt_3_Video_Player.Views
                 else
                 {
                     Video1.Position -= TimeSpan.FromTicks(ticks);
+                    //MessageBox.Show("Moving backwards " + ticks.ToString());
                 }
                 Video1.Play();
                 Video1.Pause();
@@ -89,18 +61,20 @@ namespace MVVM_Attempt_3_Video_Player.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            var window = Window.GetWindow(this);
-            window.KeyDown += UserControl_KeyDown;
+            this.KeyDown += new KeyEventHandler(UserControl_KeyDown_One_Video);
         }
 
-        private void fps_30(object sender, RoutedEventArgs e)
+        public void play_button(object sender, RoutedEventArgs e)
         {
-            fps_60_box.IsChecked = false;
+            Video1.Play();
         }
-
-        private void fps_60(object sender, RoutedEventArgs e)
+        public void pause_button(object sender, RoutedEventArgs e)
         {
-            fps_30_box.IsChecked = false;
+            Video1.Pause();
+        }
+        public void restart_button(object sender, RoutedEventArgs e)
+        {
+            Video1.Stop();
         }
     }
 }

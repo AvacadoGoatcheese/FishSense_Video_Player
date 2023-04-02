@@ -94,10 +94,6 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             {
                 _is_playing = value;
                 OnPropertyChanged(nameof(is_playing));
-                if (_is_playing)
-                {
-                    Video1.Play();
-                }
             }
         }
 
@@ -112,11 +108,7 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
             }
         }
         public ICommand FileExplorer { get; set; }
-
-        public ICommand PlayButton { get; set; }
-        public ICommand PauseButton { get; set; }
         public ICommand MuteButton { get; set; }
-        public ICommand RestartButton { get; set; }
 
         public OneVideoViewModel()
         {
@@ -126,9 +118,6 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
 
             FileExplorer = new FileExplorer(this);
             MuteButton = new MuteButton(this);
-            PauseButton = new PauseButton(this);
-            RestartButton= new RestartButton(this);
-            PlayButton= new PlayButton(this);
         }
 
     }

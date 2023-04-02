@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MVVM_Attempt_3_Video_Player.Views" xmlns:vm="clr-namespace:MVVM_Attempt_3_Video_Player.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" 
-             Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded" KeyboardNavigation.TabNavigation="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -20,8 +20,6 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock HorizontalAlignment="Center" Margin="6 6 3 6">--- Name ---</TextBlock>
                 <TextBlock HorizontalAlignment="Center" Margin="6 6 3 6" Text="{Binding video_one_filename_no_dir}"/>
-                <CheckBox Click="fps_30" Name="fps_30_box">30 fps</CheckBox>
-                <CheckBox Click="fps_60" Name="fps_60_box">60 fps</CheckBox>
                 <Button HorizontalAlignment="Center" Margin="6 6 3 6" Command="{Binding FileExplorer}">File Explorer</Button>
                 <TextBlock HorizontalAlignment="Center" Margin="6 0 3 0">--- Pixels ---</TextBlock>
                 <TextBlock HorizontalAlignment="Center" Margin="6 2 3 2" Text="{Binding x_coord}"/>
@@ -31,9 +29,9 @@
 
         <!--Row 1 has the buttons and the slider-->
         <StackPanel Grid.Row="1" Orientation="Horizontal" >
-            <Button Margin="40 6 6 6" Width="100" Command="{Binding PlayButton}">Play</Button>
-            <Button Margin="6 6 6 6" Width="100" Command="{Binding PauseButton}">Pause</Button>
-            <Button Margin="6 6 6 6" Width="100" Command="{Binding RestartButton}">Restart</Button>
+            <Button Margin="40 6 6 6" Width="100" Click="play_button">Play</Button>
+            <Button Margin="6 6 6 6" Width="100" Click="pause_button">Pause</Button>
+            <Button Margin="6 6 6 6" Width="100" Click="restart_button">Restart</Button>
             <Button Margin="6 6 6 6" Width="100" Command="{Binding MuteButton}">Mute</Button>
             <!--<Slider Name="Slider"  Margin="6 6 6 6" Width="500" ValueChanged="Slider_ValueChanged" Delay="2000"></Slider>-->
         </StackPanel>   

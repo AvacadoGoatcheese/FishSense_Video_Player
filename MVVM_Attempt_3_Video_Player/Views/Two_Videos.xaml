@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVM_Attempt_3_Video_Player.Views" xmlns:local1="clr-namespace:MVVM_Attempt_3_Video_Player.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800" KeyboardNavigation.TabNavigation="None">
+    <Grid KeyboardNavigation.TabNavigation="None">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
@@ -16,7 +16,7 @@
 
 
         <!--Row 0 has the video and video/pixel information-->
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" KeyboardNavigation.TabNavigation="None">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -29,12 +29,13 @@
                               IsMuted="{Binding is_muted_v1}"
                               ClipToBounds="True"
                               LoadedBehavior="Manual"
+                              KeyDown="UserControl_KeyDown_First_Video"
                               />
-                <Slider Name="Slider1" Maximum="500" Margin="12 12 12 6" Delay="1" Width="500" ValueChanged="Slider_ValueChanged"/>
+                <Slider Name="Slider1" Focusable="False" Maximum="500" Margin="12 12 12 6" Delay="1" Width="500" KeyDown="UserControl_KeyDown_First_Video" ValueChanged="Slider_ValueChanged"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="60 6 6 6" Content="Play" Command="{Binding VideoControl_Play_1}" Click="play_button1"></Button>
-                    <Button Margin="6 6 6 6" Content="Pause" Command="{Binding VideoControl_Pause_1}" Click="pause_button1"></Button>
-                    <Button Margin="6 6 6 6" Content="Restart" Command="{Binding VideoControl_Stop_1}" Click="restart_button1"></Button>
+                    <Button Margin="60 6 6 6" Content="Play" Click="play_button1"></Button>
+                    <Button Margin="6 6 6 6" Content="Pause" Click="pause_button1"></Button>
+                    <Button Margin="6 6 6 6" Content="Restart" Click="restart_button1"></Button>
                     <Button Margin="6 6 6 6" Content="Mute" Command="{Binding VideoControl_Mute_1}"></Button>
                 </StackPanel>
             </StackPanel>
@@ -44,12 +45,13 @@
                               Source="{Binding video_two_filename}"
                               IsMuted="{Binding is_muted_v2}"
                               ClipToBounds="True"
-                              LoadedBehavior="Manual"/>
-                <Slider Name="Slider2" Maximum="500"  Margin="12 12 12 6" Delay="1" Width="500" ValueChanged="Slider_ValueChanged_1"/>
+                              LoadedBehavior="Manual"
+                              KeyDown="UserControl_KeyDown_Second_Video"/>
+                <Slider Name="Slider2" Focusable="False" Maximum="500"  Margin="12 12 12 6" Delay="1" Width="500" KeyDown="UserControl_KeyDown_Second_Video" ValueChanged="Slider_ValueChanged_1"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button Margin="60 6 6 6" Content="Play" Command="{Binding VideoControl_Play_2}" Click="play_button2"></Button>
-                    <Button Margin="6 6 6 6" Content="Pause" Command="{Binding VideoControl_Pause_2}" Click="pause_button2"></Button>
-                    <Button Margin="6 6 6 6" Content="Restart" Command="{Binding VideoControl_Stop_2}" Click="restart_button2"></Button>
+                    <Button Margin="60 6 6 6" Content="Play" Click="play_button2"></Button>
+                    <Button Margin="6 6 6 6" Content="Pause" Click="pause_button2"></Button>
+                    <Button Margin="6 6 6 6" Content="Restart" Click="restart_button2"></Button>
                     <Button Margin="6 6 6 6" Content="Mute" Command="{Binding VideoControl_Mute_2}"></Button>                
                 </StackPanel>
                 
@@ -61,14 +63,6 @@
                            Margin="6 6 3 6" 
                            Text="--- Names ---"/>
 
-                <TextBlock HorizontalAlignment="Center" 
-                           Margin="6 6 3 6"
-                           Text="{Binding video_one_filename_no_dir}"/>
-
-                <TextBlock HorizontalAlignment="Center" 
-                           Margin="6 6 3 10" 
-                           Text="{Binding video_two_filename_no_dir}"/>
-                
                 <Button HorizontalAlignment="Center" 
                         Margin="6 6 3 6" 
                         Content="File Explorer Video 1"
@@ -108,11 +102,10 @@
         
 
         <!--Row 1 has the buttons and the slider-->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Margin="40 6 6 6" Width="100" Content="Play"></Button>
-            <Button Margin="6 6 6 6" Width="100" Content="Pause"></Button>
-            <Button Margin="6 6 6 6" Width="100" Content="Reset"></Button>
-            <Button Margin="6 6 6 6" Width="100" Content="Sync"></Button>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" KeyboardNavigation.TabNavigation="None">
+            <Button Margin="40 6 6 6" Width="100" Click="Mutual_Play" Content="Play"></Button>
+            <Button Margin="6 6 6 6" Width="100" Click="Mutual_Pause" Content="Pause"></Button>
+            <Button Margin="6 6 6 6" Width="100" Click="Mutual_Reset" Content="Reset"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
