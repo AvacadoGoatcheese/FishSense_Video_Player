@@ -15,15 +15,21 @@
         
         <!--Row 0 has the video and video/pixel information-->
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <MediaElement Name="Video1" LoadedBehavior="Manual" IsMuted="{Binding is_muted}" ScrubbingEnabled="True" Source="{Binding video_one_filename}"/>
+            <MediaElement Name="Video1" 
+                          LoadedBehavior="Manual" 
+                          IsMuted="{Binding is_muted}" 
+                          ScrubbingEnabled="True" Source="{Binding video_one_filename}"
+                          MouseEnter="Video1_MouseEnter"
+                          MouseLeave="Video1_MouseLeave"/>
+            <!--<ContentControl Content="{Binding Video_1}"/>-->
 
             <StackPanel Orientation="Vertical">
                 <TextBlock HorizontalAlignment="Center" Margin="6 6 3 6">--- Name ---</TextBlock>
                 <TextBlock HorizontalAlignment="Center" Margin="6 6 3 6" Text="{Binding video_one_filename_no_dir}"/>
                 <Button HorizontalAlignment="Center" Margin="6 6 3 6" Command="{Binding FileExplorer}">File Explorer</Button>
                 <TextBlock HorizontalAlignment="Center" Margin="6 0 3 0">--- Pixels ---</TextBlock>
-                <TextBlock HorizontalAlignment="Center" Margin="6 2 3 2" Text="{Binding x_coord}"/>
-                <TextBlock HorizontalAlignment="Center" Margin="6 2 3 6" Text="{Binding y_coord}"/>
+                <TextBlock HorizontalAlignment="Center" Margin="6 2 3 2" Text="" Name="x_pixel_1"/>
+                <TextBlock HorizontalAlignment="Center" Margin="6 2 3 6" Text="" Name="y_pixel_1"/>
             </StackPanel>
         </StackPanel>
 
@@ -33,7 +39,7 @@
             <Button Margin="6 6 6 6" Width="100" Click="pause_button">Pause</Button>
             <Button Margin="6 6 6 6" Width="100" Click="restart_button">Restart</Button>
             <Button Margin="6 6 6 6" Width="100" Command="{Binding MuteButton}">Mute</Button>
-            <!--<Slider Name="Slider"  Margin="6 6 6 6" Width="500" ValueChanged="Slider_ValueChanged" Delay="2000"></Slider>-->
+            <Slider Name="Slider" Visibility="Collapsed" Focusable="False" Margin="6 6 6 6" Width="500" ValueChanged="Slider_ValueChanged" Delay="2000"></Slider>
         </StackPanel>   
     </Grid>
 </UserControl>

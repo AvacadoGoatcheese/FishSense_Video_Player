@@ -1,7 +1,9 @@
 ﻿using MVVM_Attempt_3_Video_Player.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,6 +31,7 @@ namespace MVVM_Attempt_3_Video_Player.Views
         public void play_button1(object sender, RoutedEventArgs e)
         {
             Video1.Play();
+            Slider1.Visibility = Visibility.Visible;
             //MessageBox.Show(Video1.Source.ToString());
         }
         public void pause_button1(object sender, RoutedEventArgs e)
@@ -39,12 +42,11 @@ namespace MVVM_Attempt_3_Video_Player.Views
         public void restart_button1(object sender, RoutedEventArgs e)
         {
             Video1.Stop();
-            Video1.Play();
-            //MessageBox.Show("test");
         }
         public void play_button2(object sender, RoutedEventArgs e)
         {
             Video2.Play();
+            Slider2.Visibility = Visibility.Visible;
         }
         public void pause_button2(object sender, RoutedEventArgs e)
         {
@@ -53,7 +55,6 @@ namespace MVVM_Attempt_3_Video_Player.Views
         public void restart_button2(object sender, RoutedEventArgs e)
         {
             Video2.Stop();
-            Video2.Play();
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -64,13 +65,13 @@ namespace MVVM_Attempt_3_Video_Player.Views
             Video1.Play();
         }
 
-        private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            double proportion = 1.0 * Slider2.Value / Slider2.Maximum;
-            Video2.Pause();
-            Video2.Position = Video1.NaturalDuration.TimeSpan * proportion;
-            Video2.Play();
-        }
+       private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+       {
+           double proportion = 1.0 * Slider2.Value / Slider2.Maximum;
+           Video2.Pause();
+           Video2.Position = Video1.NaturalDuration.TimeSpan * proportion;
+           Video2.Play();
+       }
 
         private void UserControl_KeyDown_First_Video(object sender, KeyEventArgs e)
         {
@@ -116,41 +117,30 @@ namespace MVVM_Attempt_3_Video_Player.Views
         }
        private void UserControl_KeyDown_Two_Videos(object sender, KeyEventArgs e)
        {
-           if (e.Key == Key.Right || e.Key == Key.Left)
-           {
-               double framerate_1 = ((TwoVideosViewModel)(this.DataContext)).framerate_1;
-               double framerate_2 = ((TwoVideosViewModel)(this.DataContext)).framerate_2;
-       
-               double framerate = 0.0;
-               if (framerate_1 < framerate_2)
-               {
-                   framerate = framerate_1;
-               }
-               else
-               {
-                   framerate = framerate_2;
-               }
-               int ticks = (int)(1.0 / framerate * 10_000_000); // 10,000,000 ticks per second
-               if (e.Key == Key.Right)
-               {
-                   Video1.Position += TimeSpan.FromTicks(ticks);
-                   Video2.Position += TimeSpan.FromTicks(ticks);
-                   //MessageBox.Show("Moving forward " + ticks.ToString());
-               }
-               else
-               {
-                   Video1.Position -= TimeSpan.FromTicks(ticks);
-                   Video2.Position -= TimeSpan.FromTicks(ticks);
-                   //MessageBox.Show("Moving backwards " + ticks.ToString());
-               }
-               Video1.Play();
-               Video2.Play();
-               Video1.Pause();
-               Video2.Pause();
-           }
-       
-       
-       
+            if (e.Key == Key.Right || e.Key == Key.Left)
+            {
+                double framerate_1 = ((TwoVideosViewModel)(this.DataContext)).framerate_1;
+                double framerate_2 = ((TwoVideosViewModel)(this.DataContext)).framerate_2;
+
+                int ticks_v1 = (int)(1.0 / framerate_1 * 10_000_000); // 10,000,000 ticks per second
+                int ticks_v2 = (int)(1.0 / framerate_2 * 10_000_000); // 10,000,000 ticks per second
+                if (e.Key == Key.Right)
+                {
+                    Video1.Position += TimeSpan.FromTicks(ticks_v1);
+                    Video2.Position += TimeSpan.FromTicks(ticks_v2);
+                    //MessageBox.Show("Moving forward " + ticks_v1.ToString() + " " + ticks_v2.ToString());
+                }
+                else
+                {
+                    Video1.Position -= TimeSpan.FromTicks(ticks_v1);
+                    Video2.Position -= TimeSpan.FromTicks(ticks_v2);
+                    //MessageBox.Show("Moving backwards " + ticks_v1.ToString() + " " + ticks_v2.ToString());
+                }
+                Video1.Play();
+                Video2.Play();
+                Video1.Pause();
+                Video2.Pause();
+            }
        }
        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -176,6 +166,42 @@ namespace MVVM_Attempt_3_Video_Player.Views
             Video2.Stop();
         }
 
- 
+        private async void Video1_MouseEnter(object sender, MouseEventArgs e)
+        {
+            displaying_pixels = true;
+            _ = Update_Pixel_Video_1(sender);    
+        }
+       
+        private void Video2_MouseEnter(object sender, MouseEventArgs e)
+        {
+            displaying_pixels = true;
+            _ = Update_Pixel_Video_1(sender);
+        }
+
+        private void Video1_MouseLeave(object sender, MouseEventArgs e)
+        {
+            displaying_pixels=false;
+            y_pixel_1.Text = "";
+            x_pixel_1.Text = "";
+        }
+        private void Video2_MouseLeave(object sender, MouseEventArgs e)
+        {
+            displaying_pixels = false;
+            y_pixel_1.Text = "";
+            x_pixel_1.Text = "";
+
+        }
+
+        bool displaying_pixels = false;
+        private async Task Update_Pixel_Video_1(object video)
+        {
+            while (displaying_pixels)
+            {
+                Point p = Mouse.GetPosition((IInputElement)video);
+                y_pixel_1.Text = Convert.ToInt32(p.Y).ToString();
+                x_pixel_1.Text = Convert.ToInt32(p.X).ToString();
+                await Task.Delay(30);
+            }
+        }
     }
 }

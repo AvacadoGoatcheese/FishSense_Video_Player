@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MVVM_Attempt_3_Video_Player.ViewModels
@@ -110,6 +111,18 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
         public ICommand FileExplorer { get; set; }
         public ICommand MuteButton { get; set; }
 
+        public ICommand UpdatePixelValue { get; set; }
+
+        private MediaElement _video_1;
+        public MediaElement Video_1
+        {
+            get => _video_1;
+            set
+            {
+                _video_1 = value;
+                OnPropertyChanged(nameof(Video_1));
+            }
+        }
         public OneVideoViewModel()
         {
             _video_one_filename = "";
@@ -118,6 +131,7 @@ namespace MVVM_Attempt_3_Video_Player.ViewModels
 
             FileExplorer = new FileExplorer(this);
             MuteButton = new MuteButton(this);
+            UpdatePixelValue = new ChangePixel(this);
         }
 
     }
